@@ -1,10 +1,11 @@
-app.example.com {
+pacitankab.go.id {
 	tls /etc/caddy/certs/fullchain.pem /etc/caddy/certs/privkey.pem
-	reverse_proxy app1:3000
+	encode zstd gzip
+	reverse_proxy pacitankab-web:3000
 }
 
-# Contoh domain lain dengan sertifikat berbeda
-# api.example.com {
-# 	tls /etc/caddy/certs/api.crt /etc/caddy/certs/api.key
-# 	reverse_proxy api:3000
-# }
+# Redirect www ke domain utama (hapus blok ini kalau tidak dipakai)
+www.pacitankab.go.id {
+	tls /etc/caddy/certs/fullchain.pem /etc/caddy/certs/privkey.pem
+	redir https://pacitankab.go.id{uri} permanent
+}
