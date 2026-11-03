@@ -1,0 +1,10 @@
+app.example.com {
+	tls /etc/caddy/certs/fullchain.pem /etc/caddy/certs/privkey.pem
+	reverse_proxy app1:3000
+}
+
+# Contoh domain lain dengan sertifikat berbeda
+# api.example.com {
+# 	tls /etc/caddy/certs/api.crt /etc/caddy/certs/api.key
+# 	reverse_proxy api:3000
+# }

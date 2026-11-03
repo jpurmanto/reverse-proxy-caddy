@@ -1,0 +1,32 @@
+services:
+  caddy:
+    image: caddy:2
+    container_name: caddy
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp" # HTTP/3
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - ./certs:/etc/caddy/certs:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    networks:
+      - proxy
+      - app1_net
+      - app2_net
+
+networks:
+  proxy:
+    name: proxy
+  app1_net:
+    external: true
+    name: nama_network_app1   # sesuai hasil `docker network ls`
+  app2_net:
+    external: true
+    name: nama_network_app2
+
+volumes:
+  caddy_data:
+  caddy_config:
